@@ -1,4 +1,14 @@
 { config, inputs, pkgs, ... }:
+let 
+#hyprland = inputs.hyprland.packages.${pkgs.system}.hyprland;
+plugins = inputs.hyprland-plugins.packages.${pkgs.system};
+
+launcher = pkgs.writeShellScriptBin "hypr" ''
+   #!${pkgs.bash}/bin/bash
+    export WLR_NO_HARDWARE_CURSORS=1
+    export _JAVA_AWT_WM_NONREPARENTING=1
+'';
+in
 
 {
 
@@ -9,6 +19,7 @@ imports = [
 
   home.packages = with pkgs; [
     hyprland
+    launcher
     adoptopenjdk-jre-bin
   ];
 
@@ -193,7 +204,7 @@ imports = [
           "Super, L, exec, swaylock"
           "Super+Shift, L, exec, swaylock"
           "Control+Super, Slash, exec, pkill anyrun || anyrun"
-          "Control+Super, T, exec, ~/.config/ags/scripts/color_generation/switchwall.sh"
+          "Control+Super, T, exec, /persist/etc/nixos/end-4/CirnOS/homes/vi/.config/ags/scripts/color_generation/switchwall.sh"
           "Control+Super, R, exec, killall ags ydotool; ags -b hypr"
           "Super, Tab, exec, ags -t 'overview'"
           "Super, Slash, exec, ags -t 'cheatsheet'"

@@ -142,34 +142,20 @@ imports = [ inputs.home-manager.nixosModules.default ];
       gnomeExtensions.wallpaper-slideshow
       vim
       lf
-      mangohud
       # home-manager
       wget
       nixpkgs-fmt
       nixfmt
-      discord
-      spotify
       hakuneko
       calibre
       torrential
-      lutris
 
       coreutils
       clang
-      emacs
-      emacsGcc
 
-      i3 # gaming
       sway
 
       # Development
-      jetbrains.jdk
-      jetbrains.idea-ultimate
-      jetbrains.webstorm
-      jetbrains.datagrip
-      jetbrains.clion
-      android-studio
-      nvidia-docker
       docker
       podman
       qemu_kvm
@@ -191,7 +177,6 @@ imports = [ inputs.home-manager.nixosModules.default ];
       blueberry
       (mpv.override { scripts = [ mpvScripts.mpris ]; })
       d-spy
-      dolphin
       figma-linux
       kolourpaint
       github-desktop

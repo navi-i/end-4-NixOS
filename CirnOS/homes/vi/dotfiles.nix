@@ -3,6 +3,7 @@
     "ags".source = link ./.config/ags;
     "fish".source = link ./.config/fish;
     "foot".source = link ./.config/foot;
+    "kitty".source = link ./.config/kitty;
     "fuzzel".source = link ./.config/fuzzel;
     "mpv".source = link ./.config/mpv;
     "thorium-flags.conf".source = link ./.config/thorium-flags.conf;
