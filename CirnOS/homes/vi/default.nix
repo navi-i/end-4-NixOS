@@ -17,6 +17,7 @@ in
     ./mimelist.nix
     ./packages.nix
     ./kitty.nix
+    ./zsh.nix
     # ./starship.nix
     ./sway.nix
     ./theme.nix

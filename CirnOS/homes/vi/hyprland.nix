@@ -112,9 +112,9 @@ imports = [
       };
 
       decoration = {
-        active_opacity = 0.9;
-        inactive_opacity = 0.9;
-        fullscreen_opacity = 0.9;
+        active_opacity = 0.99;
+        inactive_opacity = 0.99;
+        fullscreen_opacity = 1;
         rounding = 10;
         drop_shadow = false;
 

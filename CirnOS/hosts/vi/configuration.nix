@@ -269,6 +269,7 @@ portal = {
   users = {
     users.${username} = {
       isNormalUser = true;
+      shell = pkgs.zsh;
       initialPassword = "vex";
       extraGroups = [ "networkmanager" "wheel" "video" "input" "uinput" "libvirtd" ];
     };

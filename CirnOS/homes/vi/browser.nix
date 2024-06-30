@@ -1,46 +1,100 @@
-{ inputs, pkgs, ... }: {
-  home = {
-    sessionVariables = {
-      BROWSER = "firefox";
-    };
+{ options, config, pkgs, inputs, ... }:
 
-    file."firefox-gnome-theme" = {
-      target = ".mozilla/firefox/default/chrome/firefox-gnome-theme";
-      source = inputs.firefox-gnome-theme;
-    };
-    packages = with pkgs; [
-      libsForQt5.plasma-browser-integration
-    ];
-  };
 
-  programs.firefox = {
-    enable = true;
-    profiles.default = {
-      name = "Default";
-      settings = {
-        "accessibility.typeaheadfind.manual" = false;
-        "accessibility.typeaheadfind.autostart" = false;
-        "browser.tabs.loadInBackground" = true;
-        "browser.tabs.loadBookmarksInBackground" = true;
-        "toolkit.tabbox.switchByScrolling" = true;
-        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-        "svg.context-properties.content.enabled" = true;
+{
 
-        "gnomeTheme.hideSingleTab" = true;
-        "gnomeTheme.bookmarksToolbarUnderTabs" = true;
-        "gnomeTheme.normalWidthTabs" = false;
-        "gnomeTheme.tabsAsHeaderbar" = false;
+    programs.firefox = {
+      enable = true;
+      profiles = {
+        default = {
+          id = 0;
+          name = "xiN";
+          isDefault = true;
+          settings = {
+            # "browser.startup.homepage" = "https://prettycoffee.github.io/fluidity/";
+            "browser.startup.homepage" = "https://start.duckduckgo.com/";
+             Homepage.StartPage = "none";
+             Homepage.URL = "https://duckduckgo.com"; 
+            "browser.search.defaultenginename" = "DuckDuckGo";
+            "browser.search.order.1" = "DuckDuckGo";
+          };
+
+   settings = {
+        "browser.disableResetPrompt" = true;
+        "browser.download.panel.shown" = true;
+        "browser.download.useDownloadDir" = false;
+        "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+        "browser.shell.checkDefaultBrowser" = false;
+        "browser.shell.defaultBrowserCheckCount" = 1;
+        "dom.security.https_only_mode" = true;
+        "identity.fxaccounts.enabled" = false;
+        "privacy.trackingprotection.enabled" = true;
+        "layout.frame_rate" = 144;
+        "generate.smoothScroll.msdPhysics.enabled" = true;
+        "mousewheel.min_line_scroll_amount" = 30;
+        "privacy.trackingprotection.fingerprinting.enabled" = true;
+        "geo.enabled" = false;
+        "media.peerconnection.enabled " = false;
+        "privacy.trackingprotection.cryptomining.enabled" = true;
+        "privacy.firstparty.isolate" = true;
+        "media.navigator.enabled" = false;
+        "network.cookie.cookieBehavior" = 3;
+        "network.cookie.lifetimePolicy" = 2;
+        "network.dns.disablePrefetch" = true;
+        "webgl.disabled" = true;
+        "network.prefetch-next" = false;
+        "dom.event.clipboardevents.enabled" = false;
+        "media.eme.enabled" = false;
+        "browser.ping-centre.telemetry" = false;
+        "extensions.pocket.enabled" = false;
+        "signon.rememberSignons" = false;
+        "beacon.enabled" = false;
+        "browser.send_pings" = false;
+        "network.http.referer.XOriginPolicy" = 1;
+        "network.http.referer.XOriginTrimmingPolicy" = 2;
+        "browser.sessionstore.privacy_level" = 2;
       };
-      userChrome = ''
-        @import "firefox-gnome-theme/userChrome.css";
-      '';
-      userContent = ''
-        @import "firefox-gnome-theme/userContent.css";
-      '';
-    };
-    nativeMessagingHosts = [
-      pkgs.plasma-browser-integration
-      pkgs.browserpass
-    ];
+
+#    extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
+#       ublock-origin
+#       darkreader
+#       clearurls
+#      ]; 
+          search = {
+            force = true;
+            default = "DuckDuckGo";
+            order = [ "DuckDuckGo" "Google" ];
+            engines = {
+              "Nix Packages" = {
+                urls = [{
+                  template = "https://search.nixos.org/packages";
+                  params = [
+                    { name = "type"; value = "packages"; }
+                    { name = "query"; value = "{searchTerms}"; }
+                  ];
+                }];
+                icon = "''${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                definedAliases = [ "@np" ];
+              };
+              "NixOS Wiki" = {
+                urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
+                iconUpdateURL = "https://nixos.wiki/favicon.png";
+                updateInterval = 24 * 60 * 60 * 1000; # every day
+                definedAliases = [ "@nw" ];
+              };
+              "Whoogle" = {
+                urls = [{ template = "https://duckduckgo.com/search={searchTerms}"; }];
+                iconUpdateURL = "https://nixos.wiki/favicon.png";
+                updateInterval = 24 * 60 * 60 * 1000; # every day
+                definedAliases = [ "@duckduckgo" ];
+              };
+              "Bing".metaData.hidden = true;
+              "Google".metaData.alias = "@g"; # builtin engines only support specifying one additional alias
+            };
+          };
+    
+        };
+      };
   };
+
 }
